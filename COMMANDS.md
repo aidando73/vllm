@@ -1,10 +1,14 @@
 ```bash
 # Create a docker container specifically for vllm
-docker run -it --gpus all --name aidan_vllm_container -v /home/aidan/home:/home/aidan nvidia/cuda:12.4.0-devel-ubuntu22.04
+docker run -d --gpus all --restart always --name aidan_cuda_12_4 -v /home/aidan/home:/home/aidan nvidia/cuda:12.4.0-devel-ubuntu22.04 sleep infinity
 
 # Enter the container
-docker exec -it aidan_vllm_container bash
-git remote set-url origin 
+docker exec -it aidan_cuda_12_4 bash
+
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm ~/miniconda3/miniconda.sh
 
 conda create --prefix ./env python=3.10
 
