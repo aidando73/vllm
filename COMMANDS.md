@@ -1,5 +1,9 @@
 ```bash
-docker exec -it aidan bash
+# Create a docker container specifically for vllm
+docker run -it --gpus all --name aidan_vllm_container -v /home/aidan/home:/home/aidan nvidia/cuda:12.4.0-devel-ubuntu22.04
+
+# Enter the container
+docker exec -it aidan_vllm_container bash
 git remote set-url origin 
 
 conda create --prefix ./env python=3.10
