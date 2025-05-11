@@ -4,6 +4,8 @@ git remote set-url origin
 
 conda create --prefix ./env python=3.10
 
+cd ~/vllm
+
 source ~/miniconda3/bin/activate && conda activate ./env
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
@@ -24,5 +26,14 @@ VLLM_TORCH_PROFILER_DIR=/home/aidan/fireworks/vllm_profile \
     --model microsoft/Phi-3-vision-128k-instruct \
     --trust-remote-code
 
+
 python vllm-req.py
+```
+
+```bash
+# Old
+source ~/miniconda3/bin/activate ./vllm
+uv pip install pandas datasets
+python ~/vllm/benchmarks/benchmark_serving.py --backend vllm --model microsoft/Phi-3-vision-128k-instruct --num-prompts 1 --dataset-name random --random-input 1024 --random-output 512 --profile
+python ~/vllm/benchmarks/benchmark_serving.py --backend vllm --model microsoft/Phi-3-vision-128k-instruct --num-prompts 1 --dataset-name aledade_prod.json --dataset-path 
 ```
