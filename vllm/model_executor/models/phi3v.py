@@ -705,6 +705,8 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
             inputs_embeds = self.get_input_embeddings(input_ids,
                                                       vision_embeddings)
             input_ids = None
+        
+        print(f"inputs_embeds.shape: {inputs_embeds.shape}")
 
         hidden_states = self.language_model.model(input_ids,
                                                   positions,
