@@ -658,11 +658,13 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
                 "We expect batched 2D tensors; "
                 "this can be either a list of 2D tensors or a single 3D tensor."
             )
+    
+        print(f"image_input: {image_input['data'].shape}")
 
         assert self.vision_embed_tokens is not None
         image_embeds = self.vision_embed_tokens(image_input["data"],
                                                 image_input["image_sizes"])
-
+        print(f"image_embeds.shape: {[x.shape for x in image_embeds]}")
         return image_embeds
 
     def get_language_model(self) -> torch.nn.Module:
