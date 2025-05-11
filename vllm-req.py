@@ -49,7 +49,10 @@ print(f"Starting vLLM profiling on {base_url}...")
 start_profile()
 
 # Getting the base64 string
-base64_image = encode_image(image_path)
+# base64_image = encode_image(image_path)
+
+with open("./aledade-prod.base64", "r") as file:
+    base64_image = file.read()
 
 # Payload for the API
 payload = {
@@ -59,7 +62,7 @@ payload = {
             "role": "user",
             "content": [
                 {"type": "text", "text": "What's in this image?"},
-                {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{base64_image}"}},
             ],
         }
     ],

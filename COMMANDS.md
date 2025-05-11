@@ -39,7 +39,8 @@ export CUDA_VISIBLE_DEVICES=6
 VLLM_TORCH_PROFILER_DIR=/home/aidan/fireworks/vllm_profile \
     python -m vllm.entrypoints.openai.api_server \
     --model microsoft/Phi-3-vision-128k-instruct \
-    --trust-remote-code
+    --trust-remote-code \
+    --no-enable-prefix-caching
 
 
 python vllm-req.py
