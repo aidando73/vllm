@@ -213,12 +213,15 @@ class Phi3HDImageEmbedding(Phi3ImageEmbeddingBase):
                                             self.image_dim_out)
         image_features_proj = self.hd_feature_transform(
             img_features, image_sizes)
+        print(f"image_features_proj.shape: {[x.shape for x in image_features_proj]}")
         return image_features_proj
 
     def hd_feature_transform(self, image_features, image_sizes):
         """
         image_features: (num_images, num_crops+1, 24*24, 1024)
         """
+        print(f"image_features.shape: {image_features.shape}")
+        print(f"image_sizes.shape: {image_sizes.shape}")
         assert (
             self.hd_transform_order == 'sub_glb'
         ), f'hd_transform_order `{self.hd_transform_order}` not implemented'
@@ -331,6 +334,8 @@ class Phi3VProcessingInfo(BaseProcessingInfo):
         if processor is None:
             processor = self.get_hf_processor()
 
+        print(f"processor class type: {type(processor)}")
+
         return processor.calc_num_image_tokens_from_image_size(  # type: ignore
             width=image_width,
             height=image_height,
@@ -377,6 +382,12 @@ class Phi3VMultiModalProcessor(BaseMultiModalProcessor[Phi3VProcessingInfo]):
         mm_data: Mapping[str, object],
         mm_kwargs: Mapping[str, object],
     ) -> BatchFeature:
+        print(f"mm_data: {mm_data}")
+        print(f"mm_kwargs: {mm_kwargs}")
+        # print("Call stack:")
+        # import traceback
+        # traceback.print_stack()
+
         processed_outputs = super()._call_hf_processor(
             prompt=prompt,
             mm_data=mm_data,
