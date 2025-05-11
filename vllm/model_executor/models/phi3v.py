@@ -205,6 +205,7 @@ class Phi3HDImageEmbedding(Phi3ImageEmbeddingBase):
         pixel_values: (num_images, num_crops, c, h, w)
         output: (num_images, num_img_tokens, hidden_size)
         """
+        print(f"pixel_values.shape: {pixel_values.shape}")
         num_images, num_crops, c, h, w = pixel_values.shape
         pixel_values = pixel_values.flatten(0, 1)
         img_features = self.get_img_features(pixel_values)
