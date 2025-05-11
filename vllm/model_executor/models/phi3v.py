@@ -660,11 +660,13 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
             )
     
         print(f"image_input: {image_input['data'].shape}")
+        # torch.Size([1, 17, 576, 1024])
 
         assert self.vision_embed_tokens is not None
         image_embeds = self.vision_embed_tokens(image_input["data"],
                                                 image_input["image_sizes"])
         print(f"image_embeds.shape: {[x.shape for x in image_embeds]}")
+        # torch.Size([2353, 3072])]
         return image_embeds
 
     def get_language_model(self) -> torch.nn.Module:
