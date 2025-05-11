@@ -598,6 +598,8 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
         image_sizes = kwargs.pop("image_sizes", None)
         image_embeds = kwargs.pop("image_embeds", None)
 
+        print(f"pixel_values.shape: {pixel_values.shape}")
+
         if pixel_values is None and image_embeds is None:
             return None
 
