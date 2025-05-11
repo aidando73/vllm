@@ -138,8 +138,10 @@ class Phi3ImageEmbeddingBase(nn.Module):
         # NOTE: we skip the step to select the vision feature layer since
         # this is already done inside the img_processor
         print(f"pre-clip-img_embeds.shape: {img_embeds.shape}")
+        # torch.Size([17, 3, 336, 336])
         img_feature = self.img_processor(img_embeds)
         print(f"post-clip-img_feature.shape: {img_feature.shape}")
+        # torch.Size([17, 577, 1024])
 
         if TYPE_FEATURE == "patch":
             patch_feature = img_feature[:, 1:]
