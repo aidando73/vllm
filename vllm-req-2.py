@@ -6,8 +6,7 @@ import os
 
 if __name__ == "__main__":
 #   image_url = "https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?cs=srgb&dl=pexels-christian-heitz-285904-842711.jpg&fm=jpg&w=640&h=427&_gl=1*1iij6m0*_ga*MzI5NzEzMjE3LjE3NDcwNjIwNzA.*_ga_8JE65Q40S6*czE3NDcwNjY1MTQkbzIkZzAkdDE3NDcwNjY1MTQkajAkbDAkaDA."
-#   image_url = "https://i.etsystatic.com/il/97a3f4/6483108510/il_fullxfull.6483108510_nxr1.jpg"
-  image_url = "https://i.etsystatic.com/il/d646b5/5821099297/il_fullxfull.5821099297_5y37.jpg"
+  image_url = "https://i.etsystatic.com/il/97a3f4/6483108510/il_fullxfull.6483108510_nxr1.jpg"
   import argparse
 
   parser = argparse.ArgumentParser()
