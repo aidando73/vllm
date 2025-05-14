@@ -932,16 +932,20 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
 
         grid_thw = image_input["image_grid_thw"]
         assert grid_thw.ndim == 2
+        print(f"grid_thw.shape: {grid_thw.shape}")
 
         if image_input["type"] == "image_embeds":
             image_embeds = image_input["image_embeds"].type(self.visual.dtype)
         else:
             pixel_values = image_input["pixel_values"].type(self.visual.dtype)
             image_embeds = self.visual(pixel_values, grid_thw=grid_thw)
+            print(f"pixel_values.shape: {pixel_values.shape}")
 
         # Split concatenated embeddings for each image item.
         merge_size = self.visual.spatial_merge_size
         sizes = grid_thw.prod(-1) // merge_size // merge_size
+
+        print(f"sizes: {sizes}")
 
         return image_embeds.split(sizes.tolist())
 
@@ -1145,3 +1149,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             connector="visual.merger.",
             tower_model="visual.",
         )
+
+
+
+# pixel_values.shape: torch.Size([34240, 1176])
