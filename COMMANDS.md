@@ -99,3 +99,13 @@ hf [[ 0.7040684  1.171218   1.4193913 ...  1.9041561  1.875716   1.875716 ]
  [ 1.477785   1.4923834  1.4923834 ...  1.8330555  1.8046155  1.7903955]]
 hf.pixel_values.shape (34240, 1176)
 ```
+
+# vLLM Prod
+```bash
+conda create --prefix ./vllm-prod python=3.10
+
+conda activate ./vllm-prod
+
+pip install uv
+uv pip install vllm
+```
