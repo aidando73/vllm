@@ -1,1 +1,121 @@
-<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n\nYou are an expert in e-commerce SEO specialized in Etsy listings.\n\nGenerate a detailed image caption for the provided image describing the most striking and unique elements.\nKeep the image caption per language between 225 to 250 characters in length. You should not truncate your response if it exceeds that length.  \n\nBe objective and descriptive. Avoid advertising or marketing language, opinions, and subjective interpretations.\nAvoid describing a person, hands, ankle or other body part holding or wearing an object.\nAvoid describing the surface, floor, or background behind the object in the image.\n\nThe goal is to enhance visibility in search engines.\n\n# Primary Requirements\n\n1.  Generate an image caption in each of the following languages: \nAmerican English, British English, French, German, Dutch, Iberian Spanish, Italian, Polish, Iberian Portuguese and Japanese.\n\nEach caption MUST be generated independently by analyzing the image directly. Each language version should be created as if it were the *only* description being generated. Do NOT translate from the English caption or any other language\'s caption literally.\n\n2. Return the output as a JSON object with the following structure:\n{\n  "en-US": "...",\n  "en-GB": "...",\n  "fr": "...",\n  "de": "...",\n  "nl": "...",\n  "es": "...",\n  "it": "...",\n  "pl": "...",\n  "pt": "...",\n  "ja": "..."\n}\n\n3. For each language, use appropriate regional cultural preferences, spelling, phrasing, and measurement units. \n\nIf the image contains a product with measurements, use the appropriate measurement system for each language:\n- Imperial system (inches, pounds, ounces) for the U.S and American English.\n- Metric system (cm, grams, liters) for other countries and languages.\n\nFor example, if the image shows a 30-inch table, you should include the equivalent measurement in centimeters for the British, French, German, Dutch, Iberian Spanish, Italian, Polish, Iberian Portuguese and Japanese descriptions.\n\nMaintain consistent terminology across translations.\n\n4. Be informative for both search engines and screen reader users\n\n5. Use gender neutral language in the description.  Do not mention whether the object in the image is for a man or woman.\n       For example, instead of the description: "A light blue men\'s blazer with a white and light blue patterned design",\n       exclude the word "men\'s" and use this description instead: "A light blue blazer with a white and light blue patterned design".\n\n       For example, instead of saying: "Black and green women\'s underwear with a graphic print of a creature from the black lagoon.",\n       exclude the word "women\'s" and say instead: "Black and green underwear with a graphic print of a creature from the black lagoon."\n\n6.  If the image contains text, include the text in the image description.  Avoid truncating the text in the image when the text is less than 225 characters. If the image text is blurry or unclear, omit the text.\n\n# Things to avoid\n\n1. Avoid marketing language, opinions, and subjective interpretations. Do not say "ideal for" or "perfect for".\n\n   Invalid example 1, which is invalid because it says the bottle stopper is perfect for wine enthusiasts:\n   A stylish bottle stopper features a charming butterfly design with red, white, and blue accents, reminiscent of a national flag.  This decorative bottle stopper is perfect for wine enthusiasts and adds a unique flair to any wine collection.\n\n   Invalid example 2, which is invalid because it says the shirt is ideal for everyday wear:\n   Navy blue long-sleeve shirt with a mushroom graphic and the text "Shroom Queens". The shirt is made of a soft, comfortable material and is ideal for everyday wear.\n\n2. Avoid keyword stuffing, especially at the end of the description.\n\n   Invalid example 1, which is invalid because it lists keywords "Apparel, clothing, tee shirt, graphic tee":\n   Dark heather grey V-neck t-shirt featuring a cute cartoon penguin holding a knife. Apparel, clothing, tee shirt, graphic tee.\n\n   Invalid example 2,, which is invalid because it lists keywords "Bloodhound, dog, canine, illustration, black and white, graphic design, art, animal, pet" after "Keywords":\n   Black and white stylized illustration of a Bloodhound dog lying down. Keywords: Bloodhound, dog, canine, illustration, black and white, graphic design, art, animal, pet.\n\n3. Avoid using phrases like "image of", "picture of", "close-up of", "ideal for", and "perfect for"\n\n4. Avoid describing a person, hands, ankle or other body part holding or wearing an object. Focus the alt text description on the object itself in the image, not the surface or background behind the object.\n   For example, instead of the description: "A person wearing a rainbow crochet top with a white crocheted hat and blue jeans.",\n   write this description instead: "A rainbow crochet top with a white crocheted hat and blue jeans."\n\n   For example, instead of the description: "A person wearing a black mock neck shirt and blue jeans",\n   write this description instead: "A mock neck shirt and blue jeans"\n\n   Invalid examples (DO NOT return responses like these):\n\n   Example 1 is invalid because it describes the hands of the person holding the object:\n  "Hands of a person holding a brown and black baseball cap"\n\n   Valid examples that correct the previous examples:\n   Example 1:\n   "brown and black baseball cap"\n\n 5. Avoid describing the surface or background behind the object in the image. Focus on the front-most object in the image.\n\n    Invalid examples (DO NOT return responses like these):\n    Example 1 is invalid because it describes the surface the object is sitting on:\n    "The bottle is clear and has a textured surface. The bottle is sitting on a brown surface.",\n\n    Example 2 is invalid because it describes the surface the object is standing on:\n    "A gold metal decorative stand with a round top and three legs. The stand is on a black surface."\n\n    Example 3 is invalid because it focuses on the surface instead of the object on the surface:\n    "A close-up of a gray, textured, rectangular surface with the word "remarkable" printed in white. A black and gray stylus is lying on top of the surface.\n\n    Valid examples that correct the previous examples:\n    Example 1:\n    "The bottle is clear and has a textured surface."\n\n    Example 2:\n    "A gold metal decorative stand with a round top and three legs."\n\n    Example 3:\n    "A black and gray stylus."\n\n6. Exclude the following from the image caption:\n   - Shipping information\n   - Pricing\n   - Mixed language terms\n<|vision_start|><|image_pad|><|vision_end|><|im_end|>\n<|im_start|>assistant\n
+<|im_start|>system
+You are a helpful assistant.<|im_end|>
+<|im_start|>user
+
+You are an expert in e-commerce SEO specialized in Etsy listings.
+
+Generate a detailed image caption for the provided image describing the most striking and unique elements.
+Keep the image caption per language between 225 to 250 characters in length. You should not truncate your response if it exceeds that length.  
+
+Be objective and descriptive. Avoid advertising or marketing language, opinions, and subjective interpretations.
+Avoid describing a person, hands, ankle or other body part holding or wearing an object.
+Avoid describing the surface, floor, or background behind the object in the image.
+
+The goal is to enhance visibility in search engines.
+
+# Primary Requirements
+
+1.  Generate an image caption in each of the following languages: 
+American English, British English, French, German, Dutch, Iberian Spanish, Italian, Polish, Iberian Portuguese and Japanese.
+
+Each caption MUST be generated independently by analyzing the image directly. Each language version should be created as if it were the *only* description being generated. Do NOT translate from the English caption or any other language\'s caption literally.
+
+2. Return the output as a JSON object with the following structure:
+{
+  "en-US": "...",
+  "en-GB": "...",
+  "fr": "...",
+  "de": "...",
+  "nl": "...",
+  "es": "...",
+  "it": "...",
+  "pl": "...",
+  "pt": "...",
+  "ja": "..."
+}
+
+3. For each language, use appropriate regional cultural preferences, spelling, phrasing, and measurement units. 
+
+If the image contains a product with measurements, use the appropriate measurement system for each language:
+- Imperial system (inches, pounds, ounces) for the U.S and American English.
+- Metric system (cm, grams, liters) for other countries and languages.
+
+For example, if the image shows a 30-inch table, you should include the equivalent measurement in centimeters for the British, French, German, Dutch, Iberian Spanish, Italian, Polish, Iberian Portuguese and Japanese descriptions.
+
+Maintain consistent terminology across translations.
+
+4. Be informative for both search engines and screen reader users
+
+5. Use gender neutral language in the description.  Do not mention whether the object in the image is for a man or woman.
+       For example, instead of the description: "A light blue men\'s blazer with a white and light blue patterned design",
+       exclude the word "men\'s" and use this description instead: "A light blue blazer with a white and light blue patterned design".
+
+       For example, instead of saying: "Black and green women\'s underwear with a graphic print of a creature from the black lagoon.",
+       exclude the word "women\'s" and say instead: "Black and green underwear with a graphic print of a creature from the black lagoon."
+
+6.  If the image contains text, include the text in the image description.  Avoid truncating the text in the image when the text is less than 225 characters. If the image text is blurry or unclear, omit the text.
+
+# Things to avoid
+
+1. Avoid marketing language, opinions, and subjective interpretations. Do not say "ideal for" or "perfect for".
+
+   Invalid example 1, which is invalid because it says the bottle stopper is perfect for wine enthusiasts:
+   A stylish bottle stopper features a charming butterfly design with red, white, and blue accents, reminiscent of a national flag.  This decorative bottle stopper is perfect for wine enthusiasts and adds a unique flair to any wine collection.
+
+   Invalid example 2, which is invalid because it says the shirt is ideal for everyday wear:
+   Navy blue long-sleeve shirt with a mushroom graphic and the text "Shroom Queens". The shirt is made of a soft, comfortable material and is ideal for everyday wear.
+
+2. Avoid keyword stuffing, especially at the end of the description.
+
+   Invalid example 1, which is invalid because it lists keywords "Apparel, clothing, tee shirt, graphic tee":
+   Dark heather grey V-neck t-shirt featuring a cute cartoon penguin holding a knife. Apparel, clothing, tee shirt, graphic tee.
+
+   Invalid example 2,, which is invalid because it lists keywords "Bloodhound, dog, canine, illustration, black and white, graphic design, art, animal, pet" after "Keywords":
+   Black and white stylized illustration of a Bloodhound dog lying down. Keywords: Bloodhound, dog, canine, illustration, black and white, graphic design, art, animal, pet.
+
+3. Avoid using phrases like "image of", "picture of", "close-up of", "ideal for", and "perfect for"
+
+4. Avoid describing a person, hands, ankle or other body part holding or wearing an object. Focus the alt text description on the object itself in the image, not the surface or background behind the object.
+   For example, instead of the description: "A person wearing a rainbow crochet top with a white crocheted hat and blue jeans.",
+   write this description instead: "A rainbow crochet top with a white crocheted hat and blue jeans."
+
+   For example, instead of the description: "A person wearing a black mock neck shirt and blue jeans",
+   write this description instead: "A mock neck shirt and blue jeans"
+
+   Invalid examples (DO NOT return responses like these):
+
+   Example 1 is invalid because it describes the hands of the person holding the object:
+  "Hands of a person holding a brown and black baseball cap"
+
+   Valid examples that correct the previous examples:
+   Example 1:
+   "brown and black baseball cap"
+
+ 5. Avoid describing the surface or background behind the object in the image. Focus on the front-most object in the image.
+
+    Invalid examples (DO NOT return responses like these):
+    Example 1 is invalid because it describes the surface the object is sitting on:
+    "The bottle is clear and has a textured surface. The bottle is sitting on a brown surface.",
+
+    Example 2 is invalid because it describes the surface the object is standing on:
+    "A gold metal decorative stand with a round top and three legs. The stand is on a black surface."
+
+    Example 3 is invalid because it focuses on the surface instead of the object on the surface:
+    "A close-up of a gray, textured, rectangular surface with the word "remarkable" printed in white. A black and gray stylus is lying on top of the surface.
+
+    Valid examples that correct the previous examples:
+    Example 1:
+    "The bottle is clear and has a textured surface."
+
+    Example 2:
+    "A gold metal decorative stand with a round top and three legs."
+
+    Example 3:
+    "A black and gray stylus."
+
+6. Exclude the following from the image caption:
+   - Shipping information
+   - Pricing
+   - Mixed language terms
+<|vision_start|><|image_pad|><|vision_end|><|im_end|>
+<|im_start|>assistant

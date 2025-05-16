@@ -1081,16 +1081,16 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
                 3D position IDs. `None` if no videos are passed.
         """
 
-        if inputs_embeds is not None:
-            print(f"input_embeds: {inputs_embeds.shape}")
+        # if inputs_embeds is not None:
+        #     print(f"input_embeds: {inputs_embeds.shape}")
         
-        pixel_values = kwargs.get("pixel_values", None)
-        image_embeds = kwargs.get("image_embeds", None)
+        # pixel_values = kwargs.get("pixel_values", None)
+        # image_embeds = kwargs.get("image_embeds", None)
 
-        if pixel_values is not None:
-            print(f"pixel_values: {pixel_values.shape}")
-        if image_embeds is not None:
-            print(f"image_embeds: {image_embeds.shape}")
+        # if pixel_values is not None:
+        #     print(f"pixel_values: {pixel_values.shape}")
+        # if image_embeds is not None:
+        #     print(f"image_embeds: {image_embeds.shape}")
 
         if intermediate_tensors is not None:
             inputs_embeds = None
@@ -1117,6 +1117,8 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
                     image_input=image_input,
                     video_input=video_input)
                 input_ids = None
+
+        print(f"inputs_embeds: {inputs_embeds.shape}")
 
         hidden_states = self.language_model.model(
             input_ids=input_ids,
