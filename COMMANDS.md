@@ -108,4 +108,7 @@ conda activate ./vllm-prod
 
 pip install uv
 uv pip install vllm
+
+CUDA_VISIBLE_DEVICES=3,5,6,7 vllm serve OpenGVLab/InternVL2_5-78B \
+    --tensor-parallel-size 4
 ```
