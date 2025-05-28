@@ -1016,11 +1016,14 @@ class Qwen2VLMultiModalProcessor(BaseMultiModalProcessor[Qwen2VLProcessingInfo]
         mm_data: Mapping[str, object],
         mm_kwargs: Mapping[str, object],
     ) -> BatchFeature:
-        return self.info.ctx.call_hf_processor(
+        res = self.info.ctx.call_hf_processor(
             self.info.get_hf_processor(**mm_kwargs),
             dict(text=prompt, **mm_data),
             self.info._get_image_processor_kwargs(**mm_kwargs),
         )
+        # print("preprocess_res", res)
+        # print("pixel_values", res["pixel_values"].shape)
+        return res
 
     def _get_prompt_updates(
         self,
@@ -1409,3 +1412,4 @@ class Qwen2VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             connector="visual.merger.",
             tower_model="visual.",
         )
+
