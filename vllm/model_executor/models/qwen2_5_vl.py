@@ -1006,6 +1006,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             multimodal_input = mm_input_by_modality[modality]
             if modality == "image":
                 vision_embeddings = self._process_image_input(multimodal_input)
+                print(f"vision_embeddings: {vision_embeddings}")
                 multimodal_embeddings += vision_embeddings
             if modality == "video":
                 video_embeddings = self._process_video_input(multimodal_input)
@@ -1081,8 +1082,8 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
                 3D position IDs. `None` if no videos are passed.
         """
 
-        # if inputs_embeds is not None:
-        #     print(f"input_embeds: {inputs_embeds.shape}")
+        if inputs_embeds is not None:
+            print(f"input_embeds: {inputs_embeds.shape}")
         
         # pixel_values = kwargs.get("pixel_values", None)
         # image_embeds = kwargs.get("image_embeds", None)

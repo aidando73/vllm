@@ -20,7 +20,8 @@ CUDA_VISIBLE_DEVICES=6 vllm serve /shared/text-models/hf/qwen2p5-vl-7b-instruct/
     --enable-lora \
     --lora-modules qwen2p5-vl-lora=/home/aidan/fireworks/do_not_commit/train_output-06-19_05-02/ \
     --max-lora-rank 32 \
-    --model-impl transformers \
     --port 80 \
     --host 0.0.0.0
+
+python /home/aidan/fireworks/sample_vision_req_vllm.py
 ```
