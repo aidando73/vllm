@@ -11,7 +11,9 @@ sudo mv cmake-3.31.7-linux-x86_64 /opt/cmake-3.31.7-linux-x86_64
 echo "export PATH=/opt/cmake-3.31.7-linux-x86_64/bin:$PATH" >> ~/.bashrc
 source ~/.bashrc
 
-uv pip install -e .
+pip install uv
+uv pip install -r requirements/build.txt
+VLLM_USE_PRECOMPILED=1 uv pip install --editable .
 
 source ~/miniconda3/bin/activate /home/aidan/vllm/env
 CUDA_VISIBLE_DEVICES=6 vllm serve /shared/text-models/hf/qwen2p5-vl-7b-instruct/ \
