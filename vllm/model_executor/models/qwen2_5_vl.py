@@ -828,7 +828,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
 
         self.make_empty_intermediate_tensors = (
             self.language_model.make_empty_intermediate_tensors)
-
+    
     def _maybe_ignore_quant_config(self, quant_config: QuantizationConfig):
         # GPTQ configs do not have a list of ignored modules, however AutoGPTQ
         # seems to avoid vision encoder sections for some models.
@@ -932,16 +932,22 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
 
         grid_thw = image_input["image_grid_thw"]
         assert grid_thw.ndim == 2
+        print(f"grid_thw.shape: {grid_thw.shape}")
 
         if image_input["type"] == "image_embeds":
             image_embeds = image_input["image_embeds"].type(self.visual.dtype)
         else:
             pixel_values = image_input["pixel_values"].type(self.visual.dtype)
             image_embeds = self.visual(pixel_values, grid_thw=grid_thw)
+            print(f"pixel_values: {pixel_values}")
+            print(f"image_embeds.shape: {image_embeds.shape}")
+            print(f"image_embeds: {image_embeds}")
 
         # Split concatenated embeddings for each image item.
         merge_size = self.visual.spatial_merge_size
         sizes = grid_thw.prod(-1) // merge_size // merge_size
+
+        print(f"sizes: {sizes}")
 
         return image_embeds.split(sizes.tolist())
 
@@ -1002,6 +1008,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             multimodal_input = mm_input_by_modality[modality]
             if modality == "image":
                 vision_embeddings = self._process_image_input(multimodal_input)
+                print(f"vision_embeddings: {vision_embeddings}")
                 multimodal_embeddings += vision_embeddings
             if modality == "video":
                 video_embeddings = self._process_video_input(multimodal_input)
@@ -1029,11 +1036,12 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
         inputs_embeds = self.get_input_embeddings(input_ids)
         if image_input is not None:
             image_embeds = self._process_image_input(image_input)
+            print(f"image_embeds: {image_embeds}")
             inputs_embeds = merge_multimodal_embeddings(
                 input_ids,
                 inputs_embeds,
                 image_embeds,
-                placeholder_token_id=self.config.image_token_id,
+                placeholder_token_id=self.config.image_token_id, 
             )
 
         if video_input is not None:
@@ -1076,6 +1084,16 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
                 in seconds) for each grid along the temporal dimension in the
                 3D position IDs. `None` if no videos are passed.
         """
+        # if inputs_embeds is not None:
+        #     print(f"input_embeds: {inputs_embeds.shape}")
+        
+        # pixel_values = kwargs.get("pixel_values", None)
+        # image_embeds = kwargs.get("image_embeds", None)
+
+        # if pixel_values is not None:
+        #     print(f"pixel_values: {pixel_values.shape}")
+        # if image_embeds is not None:
+        #     print(f"image_embeds: {image_embeds.shape}")
 
         if intermediate_tensors is not None:
             inputs_embeds = None
@@ -1086,6 +1104,9 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
         elif inputs_embeds is None:
             image_input = self._parse_and_validate_image_input(**kwargs)
             video_input = self._parse_and_validate_video_input(**kwargs)
+
+            if image_input is not None:
+                print(f"image_input: {image_input}")
 
             if image_input is None and video_input is None:
                 inputs_embeds = None
@@ -1099,6 +1120,8 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
                     image_input=image_input,
                     video_input=video_input)
                 input_ids = None
+
+        # print(f"inputs_embeds: {inputs_embeds.shape}")
 
         hidden_states = self.language_model.model(
             input_ids=input_ids,
@@ -1131,3 +1154,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             connector="visual.merger.",
             tower_model="visual.",
         )
+
+
+
+# pixel_values.shape: torch.Size([34240, 1176])
