@@ -318,6 +318,9 @@ class MultiHeadAttention(nn.Module):
                 _Backend.TORCH_SDPA, _Backend.XFORMERS, _Backend.PALLAS_VLLM_V1
             } else _Backend.TORCH_SDPA
 
+        print(f"backend: {backend}")
+        print(f"self.attn_backend: {self.attn_backend}")
+
     def forward(
         self,
         query: torch.Tensor,

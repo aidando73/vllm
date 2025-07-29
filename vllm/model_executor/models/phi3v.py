@@ -138,7 +138,11 @@ class Phi3ImageEmbeddingBase(nn.Module):
 
         # NOTE: we skip the step to select the vision feature layer since
         # this is already done inside the img_processor
+        print(f"pre-clip-img_embeds.shape: {img_embeds.shape}")
+        # torch.Size([17, 3, 336, 336])
         img_feature = self.img_processor(img_embeds)
+        print(f"post-clip-img_feature.shape: {img_feature.shape}")
+        # torch.Size([17, 577, 1024])
 
         if TYPE_FEATURE == "patch":
             patch_feature = img_feature[:, 1:]
@@ -206,6 +210,7 @@ class Phi3HDImageEmbedding(Phi3ImageEmbeddingBase):
         pixel_values: (num_images, num_crops, c, h, w)
         output: (num_images, num_img_tokens, hidden_size)
         """
+        print(f"pixel_values.shape: {pixel_values.shape}")
         num_images, num_crops, c, h, w = pixel_values.shape
         pixel_values = pixel_values.flatten(0, 1)
         img_features = self.get_img_features(pixel_values)
@@ -213,12 +218,15 @@ class Phi3HDImageEmbedding(Phi3ImageEmbeddingBase):
                                             self.image_dim_out)
         image_features_proj = self.hd_feature_transform(
             img_features, image_sizes)
+        print(f"image_features_proj.shape: {[x.shape for x in image_features_proj]}")
         return image_features_proj
 
     def hd_feature_transform(self, image_features, image_sizes):
         """
         image_features: (num_images, num_crops+1, 24*24, 1024)
         """
+        print(f"image_features.shape: {image_features.shape}")
+        print(f"image_sizes.shape: {image_sizes.shape}")
         assert (
             self.hd_transform_order == 'sub_glb'
         ), f'hd_transform_order `{self.hd_transform_order}` not implemented'
@@ -331,6 +339,8 @@ class Phi3VProcessingInfo(BaseProcessingInfo):
         if processor is None:
             processor = self.get_hf_processor()
 
+        print(f"processor class type: {type(processor)}")
+
         return processor.calc_num_image_tokens_from_image_size(  # type: ignore
             width=image_width,
             height=image_height,
@@ -378,6 +388,12 @@ class Phi3VMultiModalProcessor(BaseMultiModalProcessor[Phi3VProcessingInfo]):
         mm_kwargs: Mapping[str, object],
         tok_kwargs: Mapping[str, object],
     ) -> BatchFeature:
+        print(f"mm_data: {mm_data}")
+        print(f"mm_kwargs: {mm_kwargs}")
+        # print("Call stack:")
+        # import traceback
+        # traceback.print_stack()
+
         processed_outputs = super()._call_hf_processor(
             prompt=prompt,
             mm_data=mm_data,
@@ -607,6 +623,8 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
         image_sizes = kwargs.pop("image_sizes", None)
         image_embeds = kwargs.pop("image_embeds", None)
 
+        print(f"pixel_values.shape: {pixel_values.shape}")
+
         if pixel_values is None and image_embeds is None:
             return None
 
@@ -654,11 +672,12 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
                 "We expect batched 2D tensors; "
                 "this can be either a list of 2D tensors or a single 3D tensor."
             )
-
+    
+        print(f"image_input: {image_input['data'].shape}")
         assert self.vision_embed_tokens is not None
         image_embeds = self.vision_embed_tokens(image_input["data"],
                                                 image_input["image_sizes"])
-
+        print(f"image_embeds.shape: {[x.shape for x in image_embeds]}")
         return image_embeds
 
     def get_language_model(self) -> torch.nn.Module:
@@ -702,6 +721,8 @@ class Phi3VForCausalLM(nn.Module, SupportsMultiModal, SupportsPP,
             inputs_embeds = self.get_input_embeddings(input_ids,
                                                       vision_embeddings)
             input_ids = None
+        
+        print(f"inputs_embeds.shape: {inputs_embeds.shape}")
 
         hidden_states = self.language_model.model(input_ids,
                                                   positions,
