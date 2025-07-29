@@ -1009,6 +1009,9 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
             if modality == "image":
                 vision_embeddings = self._process_image_input(multimodal_input)
                 print(f"vision_embeddings: {vision_embeddings}")
+                if vision_embeddings[0].shape[0] == 252:
+                    vision_embeddings = (torch.load("/home/aidan/fireworks/image_embeds.pt"),)
+                    print(f"loading image_embeds from /home/aidan/fireworks/image_embeds.pt: {vision_embeddings[0].shape}")
                 multimodal_embeddings += vision_embeddings
             if modality == "video":
                 video_embeddings = self._process_video_input(multimodal_input)
@@ -1094,7 +1097,7 @@ class Qwen2_5_VLForConditionalGeneration(nn.Module, SupportsMultiModal,
         #     print(f"pixel_values: {pixel_values.shape}")
         # if image_embeds is not None:
         #     print(f"image_embeds: {image_embeds.shape}")
-
+        # print(self)
         if intermediate_tensors is not None:
             inputs_embeds = None
 

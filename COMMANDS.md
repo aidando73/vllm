@@ -18,7 +18,7 @@ VLLM_USE_PRECOMPILED=1 uv pip install --editable .
 source ~/miniconda3/bin/activate /home/aidan/vllm/env
 CUDA_VISIBLE_DEVICES=7 vllm serve /shared/text-models/hf/qwen2p5-vl-7b-instruct/ \
     --enable-lora \
-    --lora-modules qwen2p5-vl-lora=/home/aidan/fireworks/do_not_commit/addon-dir/train_output-06-20_15-36/ \
+    --lora-modules qwen2p5-vl-lora=/home/aidan/fireworks/do_not_commit/addon-dir/qwen-addon-lora/train_output-06-20_20-54/ \
     --max-lora-rank 32 \
     --port 8000 \
     --host 0.0.0.0
